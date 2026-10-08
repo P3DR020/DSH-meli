@@ -1,0 +1,9 @@
+kind,id,name,function,current,target,errors,detail_1,detail_2,updated_at,unit,shift,volume_day,pace_per_hour,packages_pending,packages_at_station
+team,A,Time A,Entrada & Sort,4650,5536,4,,,2026-10-08T03:35:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1421,3840,2320
+team,B,Time B,Expedição & Cargas,4000,5263,7,,,2026-10-08T03:35:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1421,3840,2320
+team,C,Time C,Triagem & Gaiolas,3900,4286,2,,,2026-10-08T03:35:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1421,3840,2320
+team,D,Time D,Suporte & Retorno,3170,3729,1,,,2026-10-08T03:35:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1421,3840,2320
+team,E,Time E,Problemas & Devoluções,2700,3034,2,,,2026-10-08T03:35:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1421,3840,2320
+session,gaiolas,Initizadores,Fluxo interno,312,380,0,42 em trânsito,Tempo médio 18s/bip,2026-10-08T03:35:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1421,3840,2320
+session,recebimento,Recebimento (Inbound),Docas,14,16,0,12.450 volumes descarregados,3 veículos em pátio,2026-10-08T03:35:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1421,3840,2320
+session,auditorias,Auditoria e Qualidade,Conformidade,96,100,8,1.240 amostras,Extravio zero,2026-10-08T03:35:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1421,3840,2320
