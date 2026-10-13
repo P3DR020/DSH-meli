@@ -1,35 +1,16 @@
 const sessionMeta = {
   auditorias: { tone: "green", ring: 1 },
-  recebimento: { tone: "blue", ring: 2 },
-  gaiolas: { tone: "yellow", ring: 3 },
+  expedicao: { tone: "blue", ring: 2 },
+  recebimento: { tone: "cyan", ring: 3 },
+  iniciadores: { tone: "yellow", ring: 4 },
+  resolucao: { tone: "purple", ring: 5 },
 };
 
 function SessionDetails({ session }) {
-  if (session.id === "auditorias") {
-    return (
-      <>
-        <p>{session.current.toFixed(1).replace(".", ",")}% em Conformidade</p>
-        <span>{session.detail_1} concluídas</span>
-        <em>Extravios: Zero &nbsp;•&nbsp; Avarias: {session.errors}</em>
-      </>
-    );
-  }
-
-  if (session.id === "recebimento") {
-    return (
-      <>
-        <p>{session.current} / {session.target} Docas Operando</p>
-        <span>{session.detail_1}</span>
-        <em>{session.detail_2} &nbsp;•&nbsp; SLA: 94%</em>
-      </>
-    );
-  }
-
   return (
     <>
-      <p>{session.current} Gaiolas Concluídas</p>
-      <span>Meta do turno: {session.target} gaiolas</span>
-      <em>{session.detail_1} &nbsp;•&nbsp; {session.detail_2}</em>
+      <p>{session.detail_1}</p>
+      <span>{session.detail_2}</span>
     </>
   );
 }
@@ -37,13 +18,16 @@ function SessionDetails({ session }) {
 export function FlowMonitor({ sessions, aggregate }) {
   const rings = sessions
     .filter((session) => sessionMeta[session.id])
-    .map((session) => ({ ...session, ...sessionMeta[session.id] }))
+    .map((session) => ({
+      ...session,
+      ...sessionMeta[session.id],
+    }))
     .sort((a, b) => a.ring - b.ring);
   return (
     <section className="panel flow-panel">
       <header className="panel-heading flow-heading">
-        <h2>Monitor de fluxo das sessões operacionais</h2>
-        <p>Indicador integrado e índices individuais por sessão</p>
+        <h2>Monitor de fluxo das sessões</h2>
+        <p>Cada sessão mantém uma cor fixa para facilitar a leitura</p>
       </header>
       <div className="flow-content">
         <div className="radial" aria-label={`Fluxo geral agregado ${aggregate}%`}>
@@ -61,12 +45,6 @@ export function FlowMonitor({ sessions, aggregate }) {
           ))}
         </div>
       </div>
-      <aside className="aggregate-note">
-        <strong>Índice agregado de fluxo - {aggregate}%</strong>
-        <p>Consolida a harmonia entre Initizadores ({rings.find((item) => item.id === "gaiolas")?.progress_pct.toFixed(0)}%), Recebimento ({rings.find((item) => item.id === "recebimento")?.progress_pct.toFixed(0)}%) e Auditoria ({rings.find((item) => item.id === "auditorias")?.progress_pct.toFixed(0)}%).</p>
-        <span>Permite à liderança avaliar a cadência sistêmica das etapas de apoio em um único indicador central.</span>
-        <small>Cálculo: Média ponderada com base nas metas individuais concluídas no turno.</small>
-      </aside>
     </section>
   );
 }

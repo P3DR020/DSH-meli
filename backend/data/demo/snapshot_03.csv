@@ -4,6 +4,8 @@ team,B,Time B,Expedição & Cargas,3650,5263,6,,,2026-10-08T02:10:00-03:00,SBA9,
 team,C,Time C,Triagem & Gaiolas,3500,4286,2,,,2026-10-08T02:10:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1387,5830,2150
 team,D,Time D,Suporte & Retorno,2750,3729,1,,,2026-10-08T02:10:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1387,5830,2150
 team,E,Time E,Problemas & Devoluções,2400,3034,1,,,2026-10-08T02:10:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1387,5830,2150
-session,gaiolas,Initizadores,Fluxo interno,294,380,0,47 em trânsito,Tempo médio 20s/bip,2026-10-08T02:10:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1387,5830,2150
-session,recebimento,Recebimento (Inbound),Docas,12,16,0,10.880 volumes descarregados,4 veículos em pátio,2026-10-08T02:10:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1387,5830,2150
-session,auditorias,Auditoria e Qualidade,Conformidade,93,100,9,1.120 amostras,Extravio zero,2026-10-08T02:10:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1387,5830,2150
+session,auditorias,Auditoria de Qualidade,Qualidade,93,100,9,"98,6% em Conformidade",1.120 amostras • Perdas: Zero • Variâncias: 9,2026-10-08T02:10:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1387,5830,2150
+session,expedicao,Expedição,Saída,87,100,0,87% sem tempo de liberação qualificado,27 de 31 veículos emitidos sem SLA de carga,2026-10-08T02:10:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1387,5830,2150
+session,recebimento,Recebimento,Inbound,75,100,0,6 / 8 Docas Operacionais,10.880 volumes baixados • SLA: 92%,2026-10-08T02:10:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1387,5830,2150
+session,iniciadores,Iniciadores,Rotas,77,100,0,294 / 380 Gaiolas de Rotas Datadas,Meta: 100% de Rotas Datadas,2026-10-08T02:10:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1387,5830,2150
+session,resolucao,Resolução de Problemas,Problem Solving,66,100,0,66% de resolução (Meta: > 50%),76 de 115 problemas pendentes tratados em sequência,2026-10-08T02:10:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1387,5830,2150

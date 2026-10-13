@@ -21,10 +21,6 @@ export default function App() {
   if (!data) return null;
 
   const { kpis } = data;
-  const reportMonth = new Intl.DateTimeFormat("pt-BR", {
-    month: "long",
-    year: "numeric",
-  }).format(new Date(data.updated_at));
   return (
     <main className={`dashboard ${data.stale ? "is-stale" : ""}`}>
       <header className="topbar">
@@ -48,22 +44,9 @@ export default function App() {
       </section>
 
       <section className="main-grid">
-        <TeamTable teams={data.teams} highlight={data.highlight} />
+        <TeamTable teams={data.teams} />
         <FlowMonitor sessions={data.sessions} aggregate={data.aggregate_flow_pct} />
       </section>
-
-      <footer className="footer">
-        <div>
-          <strong>Definição operacional dos volumes no painel</strong>
-          <p><b>Pacotes pendentes:</b> constam sistemicamente como “a caminho da estação”.</p>
-          <small><b>Pacotes na estação:</b> recebidos em devoluções, Soluções de Problemas ou Inbound e ainda não conterenizados. <b>Processados:</b> total conterenizado pelas 5 equipes.</small>
-        </div>
-        <div className="credits">
-          <strong>Idealização e desenvolvimento</strong>
-          <p>Pedro Henrique Santos de Jesus &nbsp;·&nbsp; Jhonata dos Santos Moura</p>
-          <small>Rep 1 / SBA9 &nbsp;•&nbsp; {reportMonth.charAt(0).toUpperCase() + reportMonth.slice(1)}</small>
-        </div>
-      </footer>
     </main>
   );
 }

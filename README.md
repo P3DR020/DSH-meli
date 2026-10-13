@@ -72,6 +72,18 @@ cd frontend
 pnpm build
 ```
 
+## Publicacao gratuita
+
+O backend esta preparado para o Render por meio do arquivo `render.yaml`. O frontend esta preparado para a Vercel pelo arquivo `vercel.json`.
+
+Depois de publicar a API no Render, configure na Vercel a variavel de ambiente abaixo usando a URL publica do servico:
+
+```text
+VITE_API_URL=https://SEU-SERVICO.onrender.com/api/v1/dashboard/turno-atual
+```
+
+O plano gratuito do Render pode suspender a API quando ela fica sem uso. A primeira abertura depois desse periodo pode levar alguns segundos.
+
 ## Creditos
 
 Idealizacao: Pedro Henrique Santos de Jesus e Jhonata dos Santos Moura (Rep 1 / SBA9).
