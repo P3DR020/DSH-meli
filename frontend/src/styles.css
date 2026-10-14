@@ -17,7 +17,7 @@
 }
 
 * { box-sizing: border-box; }
-html, body, #root { min-width: 320px; min-height: 100%; margin: 0; background: var(--bg); }
+html, body, #root { min-width: 0; min-height: 100%; margin: 0; background: var(--bg); }
 body { overflow-x: hidden; }
 button { font: inherit; }
 
@@ -219,15 +219,61 @@ button { font: inherit; }
 }
 
 @media (max-width: 620px) {
-  .topbar { min-height: 120px; }
-  .brand { width: 74px; }
+  .dashboard { padding: 10px; gap: 10px; }
+  .topbar {
+    min-height: 164px;
+    padding: 10px;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-rows: auto auto auto auto;
+    column-gap: 10px;
+    row-gap: 5px;
+  }
+  .brand { grid-column: 1; grid-row: 1; width: 70px; height: 38px; font-size: 18px; }
+  .location { grid-column: 2; grid-row: 1; justify-self: end; gap: 7px; font-size: 14px; }
+  .live-status { grid-column: 1 / -1; grid-row: 2; justify-self: start; font-size: 13px; }
+  .live-status i { width: 9px; height: 9px; margin-right: 7px; }
+  .topbar h1 { grid-column: 1 / -1; grid-row: 3; font-size: 20px; line-height: 1.08; }
+  .time-stack { grid-column: 1 / -1; grid-row: 4; justify-self: end; }
+  .refresh-button { font-size: 13px; }
+  .time-stack span { padding-right: 8px; font-size: 11px; }
   .kpi-grid { grid-template-columns: 1fr; }
+  .kpi-card { padding: 14px 16px 12px; }
+  .kpi-value { font-size: 42px; }
+  .kpi-note { margin: 8px 0 7px; }
+  .panel { padding: 10px; }
   .panel-heading { align-items: flex-start; flex-direction: column; padding: 8px 0; }
-  .panel-heading h2 { white-space: normal; }
+  .panel-heading h2 { font-size: 17px; line-height: 1.15; white-space: normal; }
+  .panel-heading > span { font-size: 12px; white-space: normal; }
+  .team-panel { min-height: auto; }
+  .team-list { grid-template-rows: none; gap: 8px; }
+  .team-row { min-height: 126px; padding: 10px; row-gap: 8px; }
+  .team-row strong { font-size: 17px; }
+  .team-row small { font-size: 12px; }
+  .team-row > b { font-size: 19px; }
+  .team-progress { grid-column: 1 / -1; }
+  .team-row > div:nth-of-type(3) { grid-column: 1; }
+  .status-tag { grid-column: 2; min-width: 112px; align-self: center; }
   .flow-panel { min-height: auto; }
-  .flow-content { grid-template-columns: 1fr; min-height: auto; }
+  .flow-content { grid-template-columns: 1fr; min-height: auto; gap: 18px; }
+  .radial { width: min(82vw, 270px); }
   .session-list { grid-template-rows: none; }
-  .session-card { min-height: 74px; }
+  .session-card { min-height: 88px; padding: 10px; }
+  .session-card-heading b { font-size: 11px; white-space: normal; }
+  .session-card-heading strong { font-size: 22px; }
+  .session-card p { font-size: 14px; line-height: 1.2; }
+  .session-card span { overflow: visible; font-size: 11px; text-overflow: clip; white-space: normal; }
+}
+
+@media (max-width: 370px) {
+  .dashboard { padding: 8px; gap: 8px; }
+  .topbar { min-height: 160px; padding: 8px; column-gap: 8px; }
+  .brand { width: 64px; height: 36px; font-size: 17px; }
+  .location { font-size: 13px; }
+  .topbar h1 { font-size: 18px; }
+  .kpi-value { font-size: 39px; }
+  .panel-heading h2 { font-size: 16px; }
+  .team-row { min-height: 122px; }
+  .status-tag { min-width: 104px; font-size: 12px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
