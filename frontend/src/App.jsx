@@ -1,6 +1,7 @@
 import { FlowMonitor } from "./components/FlowMonitor";
 import { KpiCard } from "./components/KpiCard";
 import { TeamTable } from "./components/TeamTable";
+import { ThemeSelector } from "./components/ThemeSelector";
 import { useDashboard } from "./hooks/useDashboard";
 import { useClock } from "./hooks/useClock";
 
@@ -36,7 +37,10 @@ export default function App() {
         <div className="live-status"><i />{data.system_status}</div>
         <div className="time-stack">
           <button className="refresh-button" onClick={refresh} title="Atualizar agora">Atualizado às {data.updated_time}</button>
-          <span>Horário atual: {currentTime}</span>
+          <div className="time-meta">
+            <span>Horário atual: {currentTime}</span>
+            <ThemeSelector />
+          </div>
         </div>
       </header>
 
