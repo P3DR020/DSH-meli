@@ -49,11 +49,11 @@
   --cyan: #00aeca;
   --amber: #f5a400;
   --purple: #9b4de3;
-  --yellow-text: #6b5f00;
-  --green-text: #007a49;
-  --blue-text: #1d5fb8;
+  --yellow-text: #a18100;
+  --green-text: #008c55;
+  --blue-text: #246dcc;
   --cyan-text: #006f86;
-  --amber-text: #8a4e00;
+  --amber-text: #c66a00;
   --purple-text: #6f2ca6;
   --dashboard-bg: radial-gradient(circle at 82% 0%, rgba(52, 131, 250, .12), transparent 34%), var(--bg);
   --topbar-bg: linear-gradient(90deg, #ffffff, #f5f8ff 68%, #edf3fb);
@@ -166,7 +166,6 @@ button { font: inherit; }
 .tone-blue { --tone: var(--blue); --tone-text: var(--blue-text); }
 .kpi-label { margin: 0 0 8px; color: var(--label); font-size: 15px; text-transform: uppercase; }
 .kpi-value { display: block; color: var(--tone-text); font-size: 45px; font-weight: 400; line-height: 1; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
-:root[data-theme="light"] .kpi-value { color: #2d3277; }
 .kpi-note { margin: 10px 0 7px; font-size: 16px; }
 .progress-track { height: 8px; overflow: hidden; background: var(--track); }
 .progress-track span { display: block; height: 100%; background: var(--tone, var(--yellow)); transition: width 500ms ease; }
