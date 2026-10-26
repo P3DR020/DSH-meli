@@ -198,6 +198,7 @@ button { font: inherit; }
 .flow-content { display: grid; grid-template-columns: minmax(240px, 1fr) minmax(0, 1.1fr); gap: 20px; align-items: center; min-height: 0; padding: 12px 0 2px; }
 .radial { position: relative; width: min(100%, 300px); aspect-ratio: 1; margin: auto; }
 .ring { position: absolute; border-radius: 50%; background: conic-gradient(var(--ring-color) calc(var(--pct) * 1%), var(--track) 0); }
+.ring:not(.ring-1) { box-shadow: 0 0 0 3px var(--surface); }
 .ring::after { content: ""; position: absolute; inset: 13%; border-radius: 50%; background: var(--surface); }
 .ring-1 { inset: 0; }
 .ring-2 { inset: 8.5%; }
