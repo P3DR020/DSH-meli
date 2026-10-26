@@ -166,6 +166,7 @@ button { font: inherit; }
 .tone-blue { --tone: var(--blue); --tone-text: var(--blue-text); }
 .kpi-label { margin: 0 0 8px; color: var(--label); font-size: 15px; text-transform: uppercase; }
 .kpi-value { display: block; color: var(--tone-text); font-size: 45px; font-weight: 400; line-height: 1; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+:root[data-theme="light"] .kpi-value { color: #2d3277; }
 .kpi-note { margin: 10px 0 7px; font-size: 16px; }
 .progress-track { height: 8px; overflow: hidden; background: var(--track); }
 .progress-track span { display: block; height: 100%; background: var(--tone, var(--yellow)); transition: width 500ms ease; }
