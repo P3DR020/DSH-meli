@@ -141,8 +141,10 @@ button { font: inherit; }
 .brand-loading .brand-mark { width: 62px; height: 42px; }
 .brand-loading .brand-mark img { width: 98px; }
 .brand-loading .brand-name { font-size: 18px; text-align: center; }
-:root[data-theme="light"] .brand { background: #ffe600; border: 1px solid #d1bd00; }
-:root[data-theme="light"] .brand-name { color: #2d3277; }
+:root[data-theme="light"] .brand,
+:root[data-theme="contrast"] .brand { background: #ffe600; border: 1px solid #d1bd00; }
+:root[data-theme="light"] .brand-name,
+:root[data-theme="contrast"] .brand-name { color: #2d3277; }
 .topbar h1 { margin: 0; font-size: 22px; font-weight: 400; text-transform: uppercase; white-space: nowrap; }
 .location { display: flex; align-items: center; gap: 12px; margin-left: 42px; color: var(--yellow-text); font-size: 18px; white-space: nowrap; }
 .location span { width: 4px; height: 4px; border-radius: 50%; background: var(--yellow); }
