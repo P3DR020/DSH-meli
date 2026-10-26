@@ -9,7 +9,7 @@ function LoadingScreen({ error }) {
   return (
     <main className="state-screen">
       <div className="brand brand-loading" role="img" aria-label="Mercado Livre">
-        <img src="/assets/mercado-livre-logo.png" alt="" />
+        <span className="brand-mark" aria-hidden="true"><img src="/assets/mercado-livre-transparent.png" alt="" /></span>
         <span className="brand-name" aria-hidden="true">mercado<br />livre</span>
       </div>
       <h1>{error ? "Nao foi possivel carregar os dados" : "Carregando painel operacional"}</h1>
@@ -29,7 +29,7 @@ export default function App() {
     <main className={`dashboard ${data.stale ? "is-stale" : ""}`}>
       <header className="topbar">
         <div className="brand" role="img" aria-label="Mercado Livre">
-          <img src="/assets/mercado-livre-logo.png" alt="" />
+          <span className="brand-mark" aria-hidden="true"><img src="/assets/mercado-livre-transparent.png" alt="" /></span>
           <span className="brand-name" aria-hidden="true">mercado<br />livre</span>
         </div>
         <h1>Painel de produtividade operacional</h1>
