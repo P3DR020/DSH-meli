@@ -47,9 +47,12 @@ button { font: inherit; }
   background: linear-gradient(90deg, rgba(45, 50, 119, .46), rgba(16, 27, 56, .72) 45%, rgba(16, 27, 56, .32));
   box-shadow: 0 12px 32px rgba(0, 0, 0, .18);
 }
-.brand { display: grid; width: 64px; height: 48px; flex: 0 0 auto; padding: 4px; place-items: center; overflow: hidden; background: #2d3277; border-radius: 3px; }
-.brand img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: left center; }
-.brand-loading { width: 112px; height: 112px; padding: 10px; }
+.brand { display: flex; width: 138px; height: 48px; flex: 0 0 auto; align-items: center; gap: 8px; padding: 4px 8px 4px 4px; overflow: hidden; background: #2d3277; border-radius: 3px; }
+.brand img { display: block; width: 46px; height: 40px; flex: 0 0 auto; object-fit: cover; object-position: left center; }
+.brand-name { color: #fff; font-size: 16px; font-weight: 700; line-height: .82; letter-spacing: -.04em; text-transform: lowercase; }
+.brand-loading { width: 138px; height: 92px; padding: 8px; flex-direction: column; gap: 4px; }
+.brand-loading img { width: 54px; height: 44px; }
+.brand-loading .brand-name { font-size: 18px; text-align: center; }
 .topbar h1 { margin: 0; font-size: 22px; font-weight: 400; text-transform: uppercase; white-space: nowrap; }
 .location { display: flex; align-items: center; gap: 12px; margin-left: 42px; color: var(--yellow); font-size: 18px; white-space: nowrap; }
 .location span { width: 4px; height: 4px; border-radius: 50%; background: var(--yellow); }
@@ -159,7 +162,9 @@ button { font: inherit; }
     gap: 12px;
   }
   .topbar { gap: 10px; padding: 8px 10px 7px; }
-  .brand { width: 54px; height: 38px; }
+  .brand { width: 124px; height: 38px; gap: 6px; padding: 4px 7px 4px 4px; }
+  .brand img { width: 36px; height: 30px; }
+  .brand-name { font-size: 14px; }
   .topbar h1 { font-size: 18px; }
   .location { gap: 9px; margin-left: 16px; font-size: 15px; }
   .live-status { font-size: 13px; }
@@ -234,7 +239,9 @@ button { font: inherit; }
     column-gap: 10px;
     row-gap: 5px;
   }
-  .brand { grid-column: 1; grid-row: 1; width: 50px; height: 38px; }
+  .brand { grid-column: 1; grid-row: 1; width: 112px; height: 38px; gap: 5px; padding: 4px 6px 4px 4px; }
+  .brand img { width: 36px; height: 30px; }
+  .brand-name { font-size: 13px; }
   .location { grid-column: 2; grid-row: 1; justify-self: end; gap: 7px; font-size: 14px; }
   .live-status { grid-column: 1 / -1; grid-row: 2; justify-self: start; font-size: 13px; }
   .live-status i { width: 9px; height: 9px; margin-right: 7px; }
@@ -273,7 +280,9 @@ button { font: inherit; }
 @media (max-width: 370px) {
   .dashboard { padding: 8px; gap: 8px; }
   .topbar { min-height: 160px; padding: 8px; column-gap: 8px; }
-  .brand { width: 48px; height: 36px; }
+  .brand { width: 106px; height: 36px; }
+  .brand img { width: 34px; height: 28px; }
+  .brand-name { font-size: 12px; }
   .location { font-size: 13px; }
   .topbar h1 { font-size: 18px; }
   .kpi-value { font-size: 39px; }

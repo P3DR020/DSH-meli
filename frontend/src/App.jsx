@@ -7,8 +7,9 @@ import { useClock } from "./hooks/useClock";
 function LoadingScreen({ error }) {
   return (
     <main className="state-screen">
-      <div className="brand brand-loading">
-        <img src="/assets/mercado-livre-logo.png" alt="Mercado Livre" />
+      <div className="brand brand-loading" role="img" aria-label="Mercado Livre">
+        <img src="/assets/mercado-livre-logo.png" alt="" />
+        <span className="brand-name" aria-hidden="true">mercado<br />livre</span>
       </div>
       <h1>{error ? "Nao foi possivel carregar os dados" : "Carregando painel operacional"}</h1>
       <p>{error || "Conectando ao backend..."}</p>
@@ -26,8 +27,9 @@ export default function App() {
   return (
     <main className={`dashboard ${data.stale ? "is-stale" : ""}`}>
       <header className="topbar">
-        <div className="brand">
-          <img src="/assets/mercado-livre-logo.png" alt="Mercado Livre" />
+        <div className="brand" role="img" aria-label="Mercado Livre">
+          <img src="/assets/mercado-livre-logo.png" alt="" />
+          <span className="brand-name" aria-hidden="true">mercado<br />livre</span>
         </div>
         <h1>Painel de produtividade operacional</h1>
         <div className="location"><b>{data.unit}</b><span /> <b>{data.shift}</b></div>
