@@ -36,11 +36,11 @@ export default function App() {
         <div className="location"><b>{data.unit}</b><span /> <b>{data.shift}</b></div>
         <div className="live-status"><i />{data.system_status}</div>
         <div className="time-stack">
-          <button className="refresh-button" onClick={refresh} title="Atualizar agora">Atualizado às {data.updated_time}</button>
-          <div className="time-meta">
-            <span>Horário atual: {currentTime}</span>
+          <div className="time-actions">
+            <button className="refresh-button" onClick={refresh} title="Atualizar agora">Atualizado às {data.updated_time}</button>
             <ThemeSelector />
           </div>
+          <span className="current-time">Horário atual: {currentTime}</span>
         </div>
       </header>
 
