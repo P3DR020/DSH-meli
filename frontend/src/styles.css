@@ -150,7 +150,7 @@ button { font: inherit; }
 .live-status i { display: inline-block; width: 12px; height: 12px; margin-right: 9px; border-radius: 50%; background: currentColor; }
 .time-stack { display: grid; justify-items: end; margin-left: 42px; gap: 1px; }
 .time-meta { display: flex; align-items: center; justify-content: flex-end; gap: 9px; }
-.time-meta > span { color: var(--muted); font-size: 13px; text-transform: uppercase; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.time-meta > span { color: var(--text); font-size: 16px; font-weight: 600; text-transform: uppercase; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .refresh-button { padding: 3px 8px; color: var(--text); background: none; border: 0; cursor: pointer; font-size: 14px; white-space: nowrap; }
 .refresh-button:hover, .refresh-button:focus-visible { color: var(--yellow-text); outline: 1px solid var(--blue); }
 .theme-control { display: flex; align-items: center; gap: 5px; color: var(--muted); font-size: 10px; text-transform: uppercase; }
@@ -270,7 +270,7 @@ button { font: inherit; }
   .location { gap: 9px; margin-left: 16px; font-size: 15px; }
   .live-status { font-size: 13px; }
   .time-stack { margin-left: 14px; }
-  .time-meta > span { font-size: 11px; }
+  .time-meta > span { font-size: 14px; }
   .refresh-button { font-size: 12px; }
   .theme-control { font-size: 9px; }
   .theme-control select { min-width: 74px; height: 20px; font-size: 9px; }
@@ -353,7 +353,7 @@ button { font: inherit; }
   .time-stack { grid-column: 1 / -1; grid-row: 4; justify-self: end; }
   .refresh-button { font-size: 13px; }
   .time-meta { gap: 6px; }
-  .time-meta > span { font-size: 11px; }
+  .time-meta > span { font-size: 13px; }
   .theme-control { gap: 3px; font-size: 9px; }
   .theme-control select { min-width: 76px; height: 21px; padding-right: 14px; font-size: 9px; }
   .kpi-grid { grid-template-columns: 1fr; }
