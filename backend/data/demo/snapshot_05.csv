@@ -7,5 +7,5 @@ team,E,Time E,Service Center,2850,3034,2,,,2026-10-08T04:55:00-03:00,SBA9,T3 (23
 session,auditorias,Auditoria de Qualidade,Qualidade,98,100,6,"99,7% em Conformidade",1.360 amostras • Perdas: Zero • Variâncias: 6,2026-10-08T04:55:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1643,2880,2050
 session,expedicao,Expedição,Saída,95,100,0,95% sem tempo de liberação qualificado,31 de 32 veículos emitidos sem SLA de carga,2026-10-08T04:55:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1643,2880,2050
 session,recebimento,Recebimento,Inbound,94,100,0,8 / 8 Docas Operacionais,13.680 volumes baixados • SLA: 96%,2026-10-08T04:55:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1643,2880,2050
-session,iniciadores,Unitizadores (Gaiolas),Rotas,88,100,0,335 / 380 Gaiolas de Rotas Datadas,Meta: 100% de Rotas Datadas,2026-10-08T04:55:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1643,2880,2050
+session,iniciadores,Rotas Concluídas,Rotas,88,100,0,88% das rotas prontas para expedição,Meta: 100% de Rotas Datadas,2026-10-08T04:55:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1643,2880,2050
 session,resolucao,Resolução de Problemas,Problem Solving,83,100,0,83% de resolução (Meta: > 50%),95 de 115 problemas pendentes tratados em sequência,2026-10-08T04:55:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1643,2880,2050
