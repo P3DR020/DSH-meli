@@ -11,6 +11,10 @@ def _as_int(value: str) -> int:
     return int(float(value or 0))
 
 
+def _as_float(value: str) -> float:
+    return float(value or 0)
+
+
 class CsvDashboardSource(DashboardSource):
     def __init__(self, file_path: Path):
         self.file_path = file_path
@@ -41,6 +45,12 @@ class CsvDashboardSource(DashboardSource):
                 "detail_2": row["detail_2"],
             }
             if row["kind"] == "team":
+                item.update({
+                    "leader_name": row.get("leader_name") or row["name"],
+                    "headcount": _as_int(row.get("headcount") or "0"),
+                    "effective_minutes": _as_int(row.get("effective_minutes") or "0"),
+                    "net_pct": _as_float(row.get("net_pct") or "0"),
+                })
                 teams.append(item)
             elif row["kind"] == "session":
                 sessions.append(item)

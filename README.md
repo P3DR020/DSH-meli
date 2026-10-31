@@ -62,6 +62,8 @@ Painel: `http://127.0.0.1:5173`
 
 Edite `backend/data/export_turno.csv`. Cada linha representa uma equipe ou sessao operacional. As colunas globais se repetem para manter o piloto em um unico arquivo exportavel.
 
+Nas linhas do tipo `team`, os dados da lideranca ficam nas colunas `leader_name`, `headcount`, `effective_minutes` e `net_pct`. A MO efetiva e armazenada em minutos e formatada pelo frontend no padrao `156h 40m`.
+
 Os valores sao demonstrativos e foram ajustados para consistencia matematica: a soma das equipes coincide com o total processado.
 
 ## Testes

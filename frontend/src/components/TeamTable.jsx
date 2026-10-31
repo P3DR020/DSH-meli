@@ -1,19 +1,11 @@
 const format = new Intl.NumberFormat("pt-BR");
 
-const operationalLeaders = {
-  A: { name: "Rafael Italo", headcount: 22, effectiveTime: "172h 20m", netPct: 36.8 },
-  B: { name: "Moisés Ferreira", headcount: 20, effectiveTime: "156h 40m", netPct: 33.4 },
-  C: { name: "Letícia Adeodato", headcount: 12, effectiveTime: "94h 00m", netPct: 37.6 },
-  D: { name: "Patrícia Sales", headcount: 10, effectiveTime: "78h 20m", netPct: 35.2 },
-  E: { name: "Roberto Cerqueira", headcount: 8, effectiveTime: "62h 40m", netPct: 36.1 },
-};
-
-const fallbackLeader = {
-  name: "Liderança operacional",
-  headcount: 0,
-  effectiveTime: "—",
-  netPct: 0,
-};
+function formatEffectiveTime(totalMinutes) {
+  if (!totalMinutes) return "—";
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+  return `${hours}h ${String(minutes).padStart(2, "0")}m`;
+}
 
 function statusClass(status) {
   return status === "ADIANTADO" ? "success" : status === "ATENCAO" ? "warning" : "steady";
@@ -21,7 +13,7 @@ function statusClass(status) {
 
 export function TeamTable({ teams }) {
   const totalHeadcount = teams.reduce(
-    (total, team) => total + (operationalLeaders[team.id]?.headcount || 0),
+    (total, team) => total + (team.headcount || 0),
     0,
   );
 
@@ -36,23 +28,23 @@ export function TeamTable({ teams }) {
       </div>
       <div className="team-list">
         {teams.map((team) => {
-          const leader = operationalLeaders[team.id] || fallbackLeader;
-          const productivityClass = leader.netPct >= 35 ? "success" : "warning";
+          const netPct = team.net_pct || 0;
+          const productivityClass = netPct >= 35 ? "success" : "warning";
 
           return (
             <article className="team-row" key={team.id}>
               <div className="leader-cell">
-                <strong>{leader.name}</strong>
+                <strong>{team.leader_name || team.name}</strong>
                 <small>Processos Sistêmicos &amp; Apoio Operacional</small>
               </div>
               <div className="headcount-cell" data-label="Efetivo (HC)">
-                <strong>{leader.headcount} Colabs</strong>
-                <small>{leader.effectiveTime} MO efetiva</small>
+                <strong>{team.headcount || 0} Colabs</strong>
+                <small>{formatEffectiveTime(team.effective_minutes)} MO efetiva</small>
               </div>
               <b className="volume-cell" data-label="Volume total">{format.format(team.bipagens)}</b>
               <div className={`team-progress ${productivityClass}`} data-label="Produtividade NET">
-                <div className="progress-track"><span style={{ width: `${Math.min(leader.netPct * 2.5, 100)}%` }} /></div>
-                <b>{leader.netPct.toFixed(1).replace(".", ",")}%</b>
+                <div className="progress-track"><span style={{ width: `${Math.min(netPct * 2.5, 100)}%` }} /></div>
+                <b>{netPct.toFixed(1).replace(".", ",")}%</b>
               </div>
               <div className="quality-cell" data-label="Qualidade">
                 <strong>{team.errors} {team.errors === 1 ? "erro" : "erros"}</strong>

@@ -1,9 +1,9 @@
-kind,id,name,function,current,target,errors,detail_1,detail_2,updated_at,unit,shift,volume_day,pace_per_hour,packages_pending,packages_at_station
-team,A,Time A,Service Center,3600,5536,2,,,2026-10-07T23:20:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1255,8980,1800
-team,B,Time B,Service Center,3000,5263,3,,,2026-10-07T23:20:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1255,8980,1800
-team,C,Time C,Service Center,2900,4286,1,,,2026-10-07T23:20:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1255,8980,1800
-team,D,Time D,Service Center,2300,3729,0,,,2026-10-07T23:20:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1255,8980,1800
-team,E,Time E,Service Center,2000,3034,1,,,2026-10-07T23:20:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1255,8980,1800
+kind,id,name,function,current,target,errors,detail_1,detail_2,updated_at,unit,shift,volume_day,pace_per_hour,packages_pending,packages_at_station,leader_name,headcount,effective_minutes,net_pct
+team,A,Time A,Service Center,3600,5536,2,,,2026-10-07T23:20:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1255,8980,1800,Moisés Ferreira,20,9400,33.4
+team,B,Time B,Service Center,3000,5263,3,,,2026-10-07T23:20:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1255,8980,1800,Patrícia Sales,10,4700,35.2
+team,C,Time C,Service Center,2900,4286,1,,,2026-10-07T23:20:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1255,8980,1800,Rafael Italo,22,10340,36.8
+team,D,Time D,Service Center,2300,3729,0,,,2026-10-07T23:20:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1255,8980,1800,Letícia Adeodato,12,5640,37.6
+team,E,Time E,Service Center,2000,3034,1,,,2026-10-07T23:20:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1255,8980,1800,Roberto Cerqueira,8,3760,36.1
 session,auditorias,Auditoria de Qualidade,Qualidade,88,100,12,"96,8% em Conformidade",920 amostras • Perdas: Zero • Variâncias: 12,2026-10-07T23:20:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1255,8980,1800
 session,expedicao,Expedição,Saída,80,100,0,80% sem tempo de liberação qualificado,24 de 30 veículos emitidos sem SLA de carga,2026-10-07T23:20:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1255,8980,1800
 session,recebimento,Recebimento,Inbound,63,100,0,5 / 8 Docas Operacionais,8.900 volumes baixados • SLA: 89%,2026-10-07T23:20:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1255,8980,1800

@@ -14,8 +14,8 @@ RAW = {
     "packages_pending": 180,
     "packages_at_station": 120,
     "teams": [
-        {"id": "A", "name": "Time A", "function": "Entrada", "current": 400, "target": 500, "errors": 2, "detail_1": "", "detail_2": ""},
-        {"id": "B", "name": "Time B", "function": "Saida", "current": 300, "target": 300, "errors": 1, "detail_1": "", "detail_2": ""},
+        {"id": "A", "name": "Time A", "function": "Entrada", "current": 400, "target": 500, "errors": 2, "detail_1": "", "detail_2": "", "leader_name": "Moisés Ferreira", "headcount": 20, "effective_minutes": 9400, "net_pct": 33.4},
+        {"id": "B", "name": "Time B", "function": "Saida", "current": 300, "target": 300, "errors": 1, "detail_1": "", "detail_2": "", "leader_name": "Patrícia Sales", "headcount": 10, "effective_minutes": 4700, "net_pct": 35.2},
     ],
     "sessions": [
         {"id": "x", "name": "X", "function": "", "current": 8, "target": 10, "errors": 0, "detail_1": "", "detail_2": ""},
@@ -31,6 +31,10 @@ class BusinessEngineTests(unittest.TestCase):
         self.assertEqual(result["kpis"]["packages_pending"], 180)
         self.assertEqual(result["kpis"]["packages_at_station"], 120)
         self.assertEqual(result["aggregate_flow_pct"], 90)
+        self.assertEqual(result["teams"][0]["leader_name"], "Moisés Ferreira")
+        self.assertEqual(result["teams"][0]["headcount"], 20)
+        self.assertEqual(result["teams"][0]["effective_minutes"], 9400)
+        self.assertEqual(result["teams"][0]["net_pct"], 33.4)
         self.assertFalse(result["stale"])
 
     def test_marks_data_as_stale(self):
