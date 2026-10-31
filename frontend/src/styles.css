@@ -172,14 +172,14 @@ button { font: inherit; }
 .progress-track { height: 8px; overflow: hidden; background: var(--track); }
 .progress-track span { display: block; height: 100%; background: var(--tone, var(--yellow)); transition: width 500ms ease; }
 
-.main-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(540px, 1fr); gap: 23px; min-height: 0; }
+.main-grid { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(520px, 1fr); gap: 23px; min-height: 0; }
 .panel { min-width: 0; min-height: 0; padding: 10px 20px 15px; background: var(--panel-bg); border: 1px solid var(--line); box-shadow: 0 14px 34px var(--shadow); }
 .team-panel { display: grid; grid-template-rows: 40px 38px minmax(0, 1fr); }
 .panel-heading { display: flex; min-height: 40px; align-items: center; justify-content: space-between; gap: 20px; border-bottom: 1px solid var(--line); }
 .panel-heading h2 { margin: 0; font-size: 18px; font-weight: 400; text-transform: uppercase; white-space: nowrap; }
 .panel-heading > span { color: var(--yellow-text); font-size: 14px; white-space: nowrap; }
 
-.team-header, .team-row { display: grid; grid-template-columns: 1.24fr .72fr 1.26fr .98fr .68fr; gap: 14px; align-items: center; }
+.team-header, .team-row { display: grid; grid-template-columns: 1.45fr .92fr .78fr 1.2fr .8fr .72fr; gap: 12px; align-items: center; }
 .team-header { height: 38px; padding: 0 12px; color: var(--header-copy); font-size: 14px; text-transform: uppercase; }
 .team-header span:nth-last-child(2), .team-header span:last-child { text-align: center; }
 .team-list { display: grid; grid-template-rows: repeat(5, minmax(0, 1fr)); gap: 10px; }
@@ -187,6 +187,8 @@ button { font: inherit; }
 .team-row strong { font-size: 18px; font-weight: 400; }
 .team-row small { display: block; margin-top: 3px; color: var(--row-copy); font-size: 14px; }
 .team-row > b { font-size: 21px; font-weight: 400; font-variant-numeric: tabular-nums; }
+.headcount-cell strong { white-space: nowrap; }
+.volume-cell { white-space: nowrap; }
 .team-progress { --tone: var(--yellow); display: grid; grid-template-columns: 1fr 36px; align-items: center; gap: 10px; }
 .team-progress.warning { --tone: var(--amber); }
 .team-progress.success { --tone: var(--green); }
@@ -284,13 +286,13 @@ button { font: inherit; }
   .kpi-value { font-size: 39px; }
   .kpi-note { margin: 8px 0 6px; font-size: 14px; }
 
-  .main-grid { grid-template-columns: minmax(0, 1.12fr) minmax(500px, 1fr); gap: 15px; }
+  .main-grid { grid-template-columns: minmax(0, 1.4fr) minmax(440px, 1fr); gap: 15px; }
   .panel { padding: 8px 12px 10px; }
   .team-panel { grid-template-rows: 38px 34px minmax(0, 1fr); }
   .panel-heading { min-height: 38px; gap: 10px; }
   .panel-heading h2 { font-size: 15px; }
-  .panel-heading > span { font-size: 11px; }
-  .team-header, .team-row { grid-template-columns: 1.16fr .7fr 1.12fr .84fr .72fr; gap: 8px; }
+  .panel-heading > span { font-size: 10px; }
+  .team-header, .team-row { grid-template-columns: 1.35fr .9fr .7fr 1.1fr .72fr .7fr; gap: 7px; }
   .team-header { height: 34px; padding: 0 8px; font-size: 11px; }
   .team-list { gap: 7px; }
   .team-row { padding: 6px 8px; }
@@ -331,8 +333,18 @@ button { font: inherit; }
   .flow-panel { min-height: 620px; }
   .team-header { display: none; }
   .team-list { grid-row: 2; }
-  .team-row { grid-template-columns: 1fr auto; }
+  .team-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .leader-cell { grid-column: 1 / -1; }
   .team-progress, .status-tag { grid-column: 1 / -1; }
+  .headcount-cell::before, .volume-cell::before, .quality-cell::before, .team-progress::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 3px;
+    color: var(--header-copy);
+    font-size: 10px;
+    text-transform: uppercase;
+  }
+  .team-progress::before { grid-column: 1 / -1; }
 }
 
 @media (max-width: 620px) {
@@ -374,7 +386,6 @@ button { font: inherit; }
   .team-row small { font-size: 12px; }
   .team-row > b { font-size: 19px; }
   .team-progress { grid-column: 1 / -1; }
-  .team-row > div:nth-of-type(3) { grid-column: 1; }
   .status-tag { grid-column: 2; min-width: 112px; align-self: center; }
   .flow-panel { min-height: auto; }
   .flow-content { grid-template-columns: 1fr; min-height: auto; gap: 18px; }
