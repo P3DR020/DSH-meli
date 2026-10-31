@@ -182,6 +182,7 @@ button { font: inherit; }
 .team-header, .team-row { display: grid; grid-template-columns: 1.32fr .92fr .72fr 1.22fr .92fr .72fr; gap: 14px; align-items: center; }
 .team-header { height: 38px; padding: 0 12px; color: var(--header-copy); font-size: 14px; text-transform: uppercase; }
 .team-header span:nth-last-child(2), .team-header span:last-child { text-align: center; }
+.team-header span:nth-child(5) { padding-left: 14px; border-left: 1px solid var(--line-soft); text-align: left; }
 .team-list { display: grid; grid-template-rows: repeat(5, minmax(0, 1fr)); gap: 10px; }
 .team-row { min-height: 0; padding: 8px 12px; background: var(--surface-2); border: 1px solid var(--line-soft); }
 .team-row strong { font-size: 18px; font-weight: 400; }
@@ -189,11 +190,12 @@ button { font: inherit; }
 .team-row > b { font-size: 21px; font-weight: 400; font-variant-numeric: tabular-nums; }
 .headcount-cell strong { white-space: nowrap; }
 .volume-cell { white-space: nowrap; }
-.team-progress { --tone: var(--yellow); display: grid; grid-template-columns: minmax(56px, 1fr) 44px; align-items: center; gap: 10px; min-width: 0; }
+.team-progress { --tone: var(--yellow); display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto; align-content: center; gap: 5px; min-width: 0; padding-right: 6px; }
 .team-progress.warning { --tone: var(--amber); }
 .team-progress.success { --tone: var(--green); }
-.team-progress b { font-size: 18px; font-weight: 400; text-align: right; white-space: nowrap; }
-.quality-cell { min-width: 0; padding-left: 3px; }
+.team-progress .progress-track { grid-row: 2; width: 100%; }
+.team-progress b { grid-row: 1; justify-self: start; font-size: 18px; font-weight: 400; line-height: 1; white-space: nowrap; }
+.quality-cell { min-width: 0; padding-left: 14px; border-left: 1px solid var(--line-soft); }
 .quality-cell strong, .quality-cell small { white-space: nowrap; }
 .status-tag { padding: 7px 5px; border: 1px solid currentColor; color: var(--yellow-text); font-size: 14px; text-align: center; white-space: nowrap; }
 .status-tag.success { color: var(--green-text); }
@@ -301,8 +303,10 @@ button { font: inherit; }
   .team-row strong { font-size: 15px; }
   .team-row small { font-size: 11px; }
   .team-row > b { font-size: 18px; }
-  .team-progress { grid-template-columns: minmax(48px, 1fr) 38px; gap: 8px; }
+  .team-header span:nth-child(5) { padding-left: 10px; }
+  .team-progress { grid-template-columns: minmax(0, 1fr); gap: 4px; padding-right: 4px; }
   .team-progress b { font-size: 14px; }
+  .quality-cell { padding-left: 10px; }
   .status-tag { padding: 5px 3px; font-size: 11px; }
 
   .flow-panel { grid-template-rows: 42px minmax(0, 1fr); padding-bottom: 10px; }
@@ -338,6 +342,8 @@ button { font: inherit; }
   .team-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .leader-cell { grid-column: 1 / -1; }
   .team-progress, .status-tag { grid-column: 1 / -1; }
+  .team-progress { grid-template-columns: minmax(0, 1fr); padding-right: 0; }
+  .quality-cell { padding-left: 0; border-left: 0; }
   .headcount-cell::before, .volume-cell::before, .quality-cell::before, .team-progress::before {
     content: attr(data-label);
     display: block;
@@ -346,7 +352,9 @@ button { font: inherit; }
     font-size: 10px;
     text-transform: uppercase;
   }
-  .team-progress::before { grid-column: 1 / -1; }
+  .team-progress::before { grid-column: 1 / -1; grid-row: 1; }
+  .team-progress b { grid-column: 1 / -1; grid-row: 2; }
+  .team-progress .progress-track { grid-column: 1 / -1; grid-row: 3; }
 }
 
 @media (max-width: 620px) {
