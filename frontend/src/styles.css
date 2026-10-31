@@ -179,7 +179,7 @@ button { font: inherit; }
 .panel-heading h2 { margin: 0; font-size: 18px; font-weight: 400; text-transform: uppercase; white-space: nowrap; }
 .panel-heading > span { color: var(--yellow-text); font-size: 14px; white-space: nowrap; }
 
-.team-header, .team-row { display: grid; grid-template-columns: 1.45fr .92fr .78fr 1.2fr .8fr .72fr; gap: 12px; align-items: center; }
+.team-header, .team-row { display: grid; grid-template-columns: 1.32fr .92fr .72fr 1.22fr .92fr .72fr; gap: 14px; align-items: center; }
 .team-header { height: 38px; padding: 0 12px; color: var(--header-copy); font-size: 14px; text-transform: uppercase; }
 .team-header span:nth-last-child(2), .team-header span:last-child { text-align: center; }
 .team-list { display: grid; grid-template-rows: repeat(5, minmax(0, 1fr)); gap: 10px; }
@@ -189,10 +189,12 @@ button { font: inherit; }
 .team-row > b { font-size: 21px; font-weight: 400; font-variant-numeric: tabular-nums; }
 .headcount-cell strong { white-space: nowrap; }
 .volume-cell { white-space: nowrap; }
-.team-progress { --tone: var(--yellow); display: grid; grid-template-columns: 1fr 36px; align-items: center; gap: 10px; }
+.team-progress { --tone: var(--yellow); display: grid; grid-template-columns: minmax(56px, 1fr) 44px; align-items: center; gap: 10px; min-width: 0; }
 .team-progress.warning { --tone: var(--amber); }
 .team-progress.success { --tone: var(--green); }
-.team-progress b { font-size: 18px; font-weight: 400; }
+.team-progress b { font-size: 18px; font-weight: 400; text-align: right; white-space: nowrap; }
+.quality-cell { min-width: 0; padding-left: 3px; }
+.quality-cell strong, .quality-cell small { white-space: nowrap; }
 .status-tag { padding: 7px 5px; border: 1px solid currentColor; color: var(--yellow-text); font-size: 14px; text-align: center; white-space: nowrap; }
 .status-tag.success { color: var(--green-text); }
 .status-tag.warning { color: var(--amber-text); }
@@ -292,14 +294,14 @@ button { font: inherit; }
   .panel-heading { min-height: 38px; gap: 10px; }
   .panel-heading h2 { font-size: 15px; }
   .panel-heading > span { font-size: 10px; }
-  .team-header, .team-row { grid-template-columns: 1.35fr .9fr .7fr 1.1fr .72fr .7fr; gap: 7px; }
+  .team-header, .team-row { grid-template-columns: 1.32fr .92fr .72fr 1.22fr .92fr .72fr; gap: 10px; }
   .team-header { height: 34px; padding: 0 8px; font-size: 11px; }
   .team-list { gap: 7px; }
   .team-row { padding: 6px 8px; }
   .team-row strong { font-size: 15px; }
   .team-row small { font-size: 11px; }
   .team-row > b { font-size: 18px; }
-  .team-progress { grid-template-columns: minmax(0, 1fr) 32px; gap: 7px; }
+  .team-progress { grid-template-columns: minmax(48px, 1fr) 38px; gap: 8px; }
   .team-progress b { font-size: 14px; }
   .status-tag { padding: 5px 3px; font-size: 11px; }
 
