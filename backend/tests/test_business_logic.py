@@ -34,6 +34,8 @@ class BusinessEngineTests(unittest.TestCase):
         self.assertEqual(result["kpis"]["processed"], 700)
         self.assertEqual(result["kpis"]["packages_pending"], 180)
         self.assertEqual(result["kpis"]["packages_at_station"], 120)
+        self.assertEqual(result["kpis"]["remaining_hours"], 3.0)
+        self.assertEqual(result["kpis"]["estimated_completion_time"], "18:00")
         self.assertEqual(result["aggregate_flow_pct"], 90)
         self.assertEqual(result["teams"][0]["leader_name"], "Moisés Ferreira")
         self.assertEqual(result["teams"][0]["headcount"], 20)

@@ -48,6 +48,26 @@ function deriveOperationalSummary(teams, kpis) {
   };
 }
 
+function deriveCompletionForecast(data) {
+  const { kpis } = data;
+  if (kpis.estimated_completion_time) {
+    return { time: kpis.estimated_completion_time, hours: kpis.remaining_hours };
+  }
+
+  const remaining = Math.max(0, kpis.volume_day - kpis.processed);
+  const hours = kpis.pace_per_hour > 0 ? remaining / kpis.pace_per_hour : 0;
+  const estimatedDate = new Date(new Date(data.updated_at).getTime() + hours * 3_600_000);
+  return {
+    time: new Intl.DateTimeFormat("pt-BR", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+      timeZone: "America/Sao_Paulo",
+    }).format(estimatedDate),
+    hours: Math.round(hours * 100) / 100,
+  };
+}
+
 export default function App() {
   const { data, error, loading, refresh } = useDashboard();
   const currentTime = useClock();
@@ -57,6 +77,7 @@ export default function App() {
   const { kpis } = data;
   const operationalSummary = data.operational_summary || deriveOperationalSummary(data.teams, kpis);
   const hourlyFlow = data.hourly_flow?.length ? data.hourly_flow : fallbackHourlyFlow;
+  const completionForecast = deriveCompletionForecast(data);
   return (
     <main className={`dashboard ${data.stale ? "is-stale" : ""}`}>
       <header className="topbar">
@@ -83,6 +104,13 @@ export default function App() {
         <KpiCard label="Processado" value={kpis.processed} note={`${kpis.progress_pct.toFixed(0)}% da meta concluída`} progress={kpis.progress_pct} tone="green" />
         <KpiCard label="Pacotes pendentes" value={kpis.packages_pending} note="A caminho da estação" progress={kpis.packages_pending_pct} tone="amber" />
         <KpiCard label="Pacotes na estação" value={kpis.packages_at_station} note="Devoluções, PS e Inbound p/ conterenização" progress={kpis.packages_at_station_pct} tone="blue" />
+        <KpiCard
+          label="Previsão de término"
+          value={completionForecast.time}
+          note={`Ritmo atual: ${new Intl.NumberFormat("pt-BR").format(kpis.pace_per_hour)} pct/h • ${completionForecast.hours.toFixed(1).replace(".", ",")}h restantes`}
+          progress={kpis.progress_pct}
+          tone="cyan"
+        />
       </section>
 
       <section className="main-grid">

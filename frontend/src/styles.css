@@ -161,11 +161,12 @@ button { font: inherit; }
 .is-stale .live-status { color: #ff5c5c; }
 .connection-banner { position: fixed; z-index: 10; top: 92px; right: 28px; padding: 7px 12px; background: #5f2e0a; color: #ffd7a6; border-left: 4px solid var(--amber); }
 
-.kpi-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 25px; }
+.kpi-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 20px; }
 .kpi-card { --tone: var(--yellow); --tone-text: var(--yellow-text); min-width: 0; padding: 15px 18px 11px; background: var(--card-bg); border: 1px solid var(--line); border-top: 5px solid var(--tone); box-shadow: 0 12px 28px var(--shadow); }
 .tone-green { --tone: var(--green); --tone-text: var(--green-text); }
 .tone-amber { --tone: var(--amber); --tone-text: var(--amber-text); }
 .tone-blue { --tone: var(--blue); --tone-text: var(--blue-text); }
+.tone-cyan { --tone: var(--cyan); --tone-text: var(--cyan-text); }
 .kpi-label { margin: 0 0 8px; color: var(--label); font-size: 15px; text-transform: uppercase; }
 .kpi-value { display: block; color: var(--tone-text); font-size: 45px; font-weight: 400; line-height: 1; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
 .kpi-note { margin: 10px 0 7px; font-size: 16px; }
