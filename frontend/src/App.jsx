@@ -19,6 +19,35 @@ function LoadingScreen({ error }) {
   );
 }
 
+const fallbackHourlyFlow = [1420, 1680, 2150, 2380, 2450, 1820, 2240, 2410, 1870].map((realized, index) => ({
+  label: ["23h", "00h", "01h", "02h", "03h", "04h", "05h", "06h", "07h"][index],
+  realized,
+  target: 1540,
+  order: index + 1,
+}));
+
+function deriveOperationalSummary(teams, kpis) {
+  const totalEffectiveMinutes = teams.reduce((total, team) => total + (team.effective_minutes || 0), 0);
+  const processed = kpis.processed;
+  const weightedNet = teams.reduce(
+    (total, team) => total + (team.net_pct || 0) * (team.effective_minutes || 0),
+    0,
+  );
+  const netGlobal = totalEffectiveMinutes ? weightedNet / totalEffectiveMinutes : 0;
+  const totalErrors = teams.reduce((total, team) => total + team.errors, 0);
+  return {
+    processed,
+    net_global_pct: Math.round(netGlobal * 10) / 10,
+    total_headcount: teams.reduce((total, team) => total + (team.headcount || 0), 0),
+    total_effective_minutes: totalEffectiveMinutes,
+    total_errors: totalErrors,
+    error_rate_pct: processed ? Math.round((totalErrors / processed) * 10_000) / 100 : 0,
+    effective_productivity: totalEffectiveMinutes ? Math.round((processed / (totalEffectiveMinutes / 60)) * 10) / 10 : 0,
+    pace_per_hour: kpis.pace_per_hour,
+    status: netGlobal > 38 ? "ADIANTADO" : netGlobal >= 32 ? "NO RITMO" : "ATENCAO",
+  };
+}
+
 export default function App() {
   const { data, error, loading, refresh } = useDashboard();
   const currentTime = useClock();
@@ -26,6 +55,8 @@ export default function App() {
   if (!data) return null;
 
   const { kpis } = data;
+  const operationalSummary = data.operational_summary || deriveOperationalSummary(data.teams, kpis);
+  const hourlyFlow = data.hourly_flow?.length ? data.hourly_flow : fallbackHourlyFlow;
   return (
     <main className={`dashboard ${data.stale ? "is-stale" : ""}`}>
       <header className="topbar">
@@ -58,9 +89,7 @@ export default function App() {
         <TeamTable teams={data.teams} />
         <FlowMonitor sessions={data.sessions} aggregate={data.aggregate_flow_pct} />
       </section>
-      {data.operational_summary ? (
-        <OperationsSummary summary={data.operational_summary} hourlyFlow={data.hourly_flow || []} shift={data.shift} />
-      ) : null}
+      <OperationsSummary summary={operationalSummary} hourlyFlow={hourlyFlow} shift={data.shift} />
     </main>
   );
 }

@@ -1,9 +1,9 @@
 const sessionMeta = {
-  auditorias: { tone: "green" },
-  expedicao: { tone: "blue" },
-  recebimento: { tone: "cyan" },
-  iniciadores: { tone: "yellow" },
-  resolucao: { tone: "purple" },
+  auditorias: { tone: "green", order: 3 },
+  expedicao: { tone: "blue", order: 4 },
+  recebimento: { tone: "cyan", order: 1 },
+  iniciadores: { tone: "yellow", order: 2 },
+  resolucao: { tone: "purple", order: 5 },
 };
 
 function SessionDetails({ session }) {
@@ -21,7 +21,8 @@ export function FlowMonitor({ sessions, aggregate }) {
     .map((session) => ({
       ...session,
       ...sessionMeta[session.id],
-    }));
+    }))
+    .sort((a, b) => (a.flow_order || a.order) - (b.flow_order || b.order));
   return (
     <section className="panel flow-panel">
       <header className="panel-heading flow-heading">
