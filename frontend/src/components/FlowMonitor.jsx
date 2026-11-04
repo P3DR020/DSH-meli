@@ -1,9 +1,9 @@
 const sessionMeta = {
-  auditorias: { tone: "green", ring: 1 },
-  expedicao: { tone: "blue", ring: 2 },
-  recebimento: { tone: "cyan", ring: 3 },
-  iniciadores: { tone: "yellow", ring: 4 },
-  resolucao: { tone: "purple", ring: 5 },
+  auditorias: { tone: "green" },
+  expedicao: { tone: "blue" },
+  recebimento: { tone: "cyan" },
+  iniciadores: { tone: "yellow" },
+  resolucao: { tone: "purple" },
 };
 
 function SessionDetails({ session }) {
@@ -21,8 +21,7 @@ export function FlowMonitor({ sessions, aggregate }) {
     .map((session) => ({
       ...session,
       ...sessionMeta[session.id],
-    }))
-    .sort((a, b) => a.ring - b.ring);
+    }));
   return (
     <section className="panel flow-panel">
       <header className="panel-heading flow-heading">
@@ -37,9 +36,9 @@ export function FlowMonitor({ sessions, aggregate }) {
           <div className="radial-center"><strong>{aggregate}%</strong><span>Fluxo geral</span><small>Média integrada</small></div>
         </div>
         <div className="session-list">
-          {rings.map((session) => (
+          {rings.map((session, index) => (
             <article className={`session-card ${session.tone}`} key={session.id}>
-              <div className="session-card-heading"><b>{session.name}</b><strong>{session.progress_pct.toFixed(0)}%</strong></div>
+              <div className="session-card-heading"><b>{index + 1}. {session.name}</b><strong>{session.progress_pct.toFixed(0)}%</strong></div>
               <SessionDetails session={session} />
             </article>
           ))}

@@ -18,8 +18,12 @@ RAW = {
         {"id": "B", "name": "Time B", "function": "Saida", "current": 300, "target": 300, "errors": 1, "detail_1": "", "detail_2": "", "leader_name": "Patrícia Sales", "headcount": 10, "effective_minutes": 4700, "net_pct": 35.2},
     ],
     "sessions": [
-        {"id": "x", "name": "X", "function": "", "current": 8, "target": 10, "errors": 0, "detail_1": "", "detail_2": ""},
-        {"id": "y", "name": "Y", "function": "", "current": 10, "target": 10, "errors": 0, "detail_1": "", "detail_2": ""},
+        {"id": "x", "name": "X", "function": "", "current": 8, "target": 10, "errors": 0, "detail_1": "", "detail_2": "", "flow_order": 2},
+        {"id": "y", "name": "Y", "function": "", "current": 10, "target": 10, "errors": 0, "detail_1": "", "detail_2": "", "flow_order": 1},
+    ],
+    "hourly_flow": [
+        {"label": "23h", "realized": 90, "target": 100, "order": 1},
+        {"label": "00h", "realized": 110, "target": 100, "order": 2},
     ],
 }
 
@@ -35,6 +39,14 @@ class BusinessEngineTests(unittest.TestCase):
         self.assertEqual(result["teams"][0]["headcount"], 20)
         self.assertEqual(result["teams"][0]["effective_minutes"], 9400)
         self.assertEqual(result["teams"][0]["net_pct"], 33.4)
+        self.assertEqual(result["sessions"][0]["id"], "y")
+        self.assertEqual(result["hourly_flow"][1]["label"], "00h")
+        self.assertEqual(result["operational_summary"]["processed"], 700)
+        self.assertEqual(result["operational_summary"]["total_headcount"], 30)
+        self.assertEqual(result["operational_summary"]["total_effective_minutes"], 14100)
+        self.assertEqual(result["operational_summary"]["total_errors"], 3)
+        self.assertEqual(result["operational_summary"]["net_global_pct"], 34.0)
+        self.assertEqual(result["operational_summary"]["status"], "NO RITMO")
         self.assertFalse(result["stale"])
 
     def test_marks_data_as_stale(self):

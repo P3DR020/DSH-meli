@@ -2,6 +2,7 @@ import { FlowMonitor } from "./components/FlowMonitor";
 import { KpiCard } from "./components/KpiCard";
 import { TeamTable } from "./components/TeamTable";
 import { ThemeSelector } from "./components/ThemeSelector";
+import { OperationsSummary } from "./components/OperationsSummary";
 import { useDashboard } from "./hooks/useDashboard";
 import { useClock } from "./hooks/useClock";
 
@@ -57,6 +58,9 @@ export default function App() {
         <TeamTable teams={data.teams} />
         <FlowMonitor sessions={data.sessions} aggregate={data.aggregate_flow_pct} />
       </section>
+      {data.operational_summary ? (
+        <OperationsSummary summary={data.operational_summary} hourlyFlow={data.hourly_flow || []} shift={data.shift} />
+      ) : null}
     </main>
   );
 }

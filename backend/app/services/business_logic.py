@@ -14,6 +14,14 @@ def _status(progress: float) -> str:
     return "ATENCAO"
 
 
+def _net_status(net_pct: float) -> str:
+    if net_pct > 38:
+        return "ADIANTADO"
+    if net_pct >= 32:
+        return "NO RITMO"
+    return "ATENCAO"
+
+
 class BusinessEngine:
     def __init__(self, stale_after_minutes: int = 10):
         self.stale_after_minutes = stale_after_minutes
@@ -42,7 +50,7 @@ class BusinessEngine:
             })
 
         sessions = []
-        for session in raw["sessions"]:
+        for session in sorted(raw["sessions"], key=lambda item: item.get("flow_order", 99)):
             sessions.append({**session, "progress_pct": _percent(session["current"], session["target"])})
 
         processed = sum(team["current"] for team in raw["teams"])
@@ -53,6 +61,16 @@ class BusinessEngine:
         overall_progress = _percent(processed, volume_day)
         aggregate_flow = round(sum(s["progress_pct"] for s in sessions) / len(sessions)) if sessions else 0
         best_team = max(teams, key=lambda item: (item["progress_pct"], -item["errors"]), default=None)
+        total_headcount = sum(team.get("headcount", 0) for team in teams)
+        total_effective_minutes = sum(team.get("effective_minutes", 0) for team in teams)
+        total_errors = sum(team["errors"] for team in teams)
+        weighted_net_total = sum(
+            team.get("net_pct", 0) * team.get("effective_minutes", 0)
+            for team in teams
+        )
+        net_global = round(weighted_net_total / total_effective_minutes, 1) if total_effective_minutes else 0.0
+        error_rate = round((total_errors / processed) * 100, 2) if processed else 0.0
+        effective_productivity = round(processed / (total_effective_minutes / 60), 1) if total_effective_minutes else 0.0
 
         return {
             "unit": raw["unit"],
@@ -81,6 +99,18 @@ class BusinessEngine:
             "teams": teams,
             "sessions": sessions,
             "aggregate_flow_pct": aggregate_flow,
+            "hourly_flow": raw.get("hourly_flow", []),
+            "operational_summary": {
+                "processed": processed,
+                "net_global_pct": net_global,
+                "total_headcount": total_headcount,
+                "total_effective_minutes": total_effective_minutes,
+                "total_errors": total_errors,
+                "error_rate_pct": error_rate,
+                "effective_productivity": effective_productivity,
+                "pace_per_hour": pace,
+                "status": _net_status(net_global),
+            },
             "highlight": ({
                 "team": best_team["name"],
                 "function": best_team["function"],

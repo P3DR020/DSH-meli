@@ -1,11 +1,20 @@
-kind,id,name,function,current,target,errors,detail_1,detail_2,updated_at,unit,shift,volume_day,pace_per_hour,packages_pending,packages_at_station,leader_name,headcount,effective_minutes,net_pct
+kind,id,name,function,current,target,errors,detail_1,detail_2,updated_at,unit,shift,volume_day,pace_per_hour,packages_pending,packages_at_station,leader_name,headcount,effective_minutes,net_pct,flow_order
 team,A,Time A,Service Center,4300,5536,3,,,2026-10-08T02:10:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1387,5830,2150,Moisés Ferreira,20,9400,33.4
 team,B,Time B,Service Center,3650,5263,6,,,2026-10-08T02:10:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1387,5830,2150,Patrícia Sales,10,4700,35.2
 team,C,Time C,Service Center,3500,4286,2,,,2026-10-08T02:10:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1387,5830,2150,Rafael Italo,22,10340,36.8
 team,D,Time D,Service Center,2750,3729,1,,,2026-10-08T02:10:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1387,5830,2150,Letícia Adeodato,12,5640,37.6
 team,E,Time E,Service Center,2400,3034,1,,,2026-10-08T02:10:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1387,5830,2150,Roberto Cerqueira,8,3760,36.1
-session,auditorias,Auditoria de Qualidade,Qualidade,93,100,9,"98,6% em Conformidade",1.120 amostras • Perdas: Zero • Variâncias: 9,2026-10-08T02:10:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1387,5830,2150
-session,expedicao,Expedição,Saída,87,100,0,87% sem tempo de liberação qualificado,27 de 31 veículos emitidos sem SLA de carga,2026-10-08T02:10:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1387,5830,2150
-session,recebimento,Recebimento,Inbound,75,100,0,6 / 8 Docas Operacionais,10.880 volumes baixados • SLA: 92%,2026-10-08T02:10:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1387,5830,2150
-session,iniciadores,Rotas Concluídas,Rotas,77,100,0,77% das rotas prontas para expedição,Meta: 100% de Rotas Datadas,2026-10-08T02:10:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1387,5830,2150
-session,resolucao,Resolução de Problemas,Problem Solving,66,100,0,66% de resolução (Meta: > 50%),76 de 115 problemas pendentes tratados em sequência,2026-10-08T02:10:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1387,5830,2150
+session,recebimento,Recebimento,Inbound,75,100,0,6 / 8 Docas Operacionais,10.880 volumes baixados • SLA: 92%,2026-10-08T02:10:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1387,5830,2150,,,,,1
+session,iniciadores,Rotas Concluídas,Rotas,77,100,0,77% das rotas prontas para expedição,Meta: 100% de Rotas Datadas,2026-10-08T02:10:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1387,5830,2150,,,,,2
+session,auditorias,Auditoria de Qualidade,Qualidade,93,100,9,"98,6% em Conformidade",1.120 amostras • Perdas: Zero • Variâncias: 9,2026-10-08T02:10:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1387,5830,2150,,,,,3
+session,expedicao,Expedição,Saída,87,100,0,87% sem tempo de liberação qualificado,27 de 31 veículos emitidos sem SLA de carga,2026-10-08T02:10:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1387,5830,2150,,,,,4
+session,resolucao,Resolução de Problemas,Problem Solving,66,100,0,66% de resolução (Meta: > 50%),76 de 115 problemas pendentes tratados em sequência,2026-10-08T02:10:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1387,5830,2150,,,,,5
+hour,h23,23h,Ritmo,1250,1540,0,,,2026-10-08T02:10:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1387,5830,2150,,,,,1
+hour,h00,00h,Ritmo,1420,1540,0,,,2026-10-08T02:10:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1387,5830,2150,,,,,2
+hour,h01,01h,Ritmo,1560,1540,0,,,2026-10-08T02:10:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1387,5830,2150,,,,,3
+hour,h02,02h,Ritmo,1680,1540,0,,,2026-10-08T02:10:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1387,5830,2150,,,,,4
+hour,h03,03h,Ritmo,1740,1540,0,,,2026-10-08T02:10:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1387,5830,2150,,,,,5
+hour,h04,04h,Ritmo,1620,1540,0,,,2026-10-08T02:10:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1387,5830,2150,,,,,6
+hour,h05,05h,Ritmo,1810,1540,0,,,2026-10-08T02:10:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1387,5830,2150,,,,,7
+hour,h06,06h,Ritmo,1700,1540,0,,,2026-10-08T02:10:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1387,5830,2150,,,,,8
+hour,h07,07h,Ritmo,1590,1540,0,,,2026-10-08T02:10:00-03:00,SBA9,T3 (23:05 - 07:55),24580,1387,5830,2150,,,,,9

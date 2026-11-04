@@ -17,8 +17,9 @@ MVP funcional de um painel de produtividade operacional para apresentacao em TV.
 - frontend React/Vite em formato 16:9 para TV;
 - backend FastAPI com contrato JSON estavel;
 - leitura de cinco cenarios CSV locais em rotacao automatica;
-- calculos de progresso, restante, ritmo e previsao de termino;
-- consolidacao de equipes e sessoes operacionais;
+- calculos de progresso, volumes pendentes e ritmo operacional;
+- consolidacao de equipes, NET global ponderada e sessoes operacionais;
+- grafico do ritmo por hora para o turno T3;
 - alerta automatico quando os dados ficam defasados;
 - atualizacao do painel a cada 10 segundos.
 
@@ -63,6 +64,10 @@ Painel: `http://127.0.0.1:5173`
 Edite `backend/data/export_turno.csv`. Cada linha representa uma equipe ou sessao operacional. As colunas globais se repetem para manter o piloto em um unico arquivo exportavel.
 
 Nas linhas do tipo `team`, os dados da lideranca ficam nas colunas `leader_name`, `headcount`, `effective_minutes` e `net_pct`. A MO efetiva e armazenada em minutos e formatada pelo frontend no padrao `156h 40m`.
+
+Nas linhas do tipo `session`, a coluna `flow_order` define a sequencia operacional exibida nos cartoes e nos aneis. Nas linhas do tipo `hour`, `name` recebe o horario, `current` o volume realizado, `target` a meta nominal por hora e `flow_order` a ordem do ponto no grafico.
+
+O consolidado calcula a NET global de forma ponderada pela MO efetiva de cada equipe: `soma(NET x MO) / soma(MO)`.
 
 Os valores sao demonstrativos e foram ajustados para consistencia matematica: a soma das equipes coincide com o total processado.
 

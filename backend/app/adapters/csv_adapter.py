@@ -32,8 +32,18 @@ class CsvDashboardSource(DashboardSource):
         first = rows[0]
         teams: list[dict[str, Any]] = []
         sessions: list[dict[str, Any]] = []
+        hourly_flow: list[dict[str, Any]] = []
 
         for row in rows:
+            if row["kind"] == "hour":
+                hourly_flow.append({
+                    "label": row["name"],
+                    "realized": _as_int(row["current"]),
+                    "target": _as_int(row["target"]),
+                    "order": _as_int(row.get("flow_order") or "0"),
+                })
+                continue
+
             item = {
                 "id": row["id"],
                 "name": row["name"],
@@ -53,6 +63,7 @@ class CsvDashboardSource(DashboardSource):
                 })
                 teams.append(item)
             elif row["kind"] == "session":
+                item["flow_order"] = _as_int(row.get("flow_order") or "99")
                 sessions.append(item)
 
         updated_at = datetime.fromisoformat(first["updated_at"])
@@ -66,6 +77,7 @@ class CsvDashboardSource(DashboardSource):
             "packages_at_station": _as_int(first.get("packages_at_station", "0")),
             "teams": teams,
             "sessions": sessions,
+            "hourly_flow": sorted(hourly_flow, key=lambda item: item["order"]),
             "source": "CSV",
         }
 
