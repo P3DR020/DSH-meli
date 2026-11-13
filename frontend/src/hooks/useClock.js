@@ -10,6 +10,7 @@ function getCurrentTime() {
 }
 
 export function useClock() {
+  // Relógio local de exibição; não consulta a API nem altera o instante da coleta dos dados.
   const [time, setTime] = useState(getCurrentTime);
 
   useEffect(() => {

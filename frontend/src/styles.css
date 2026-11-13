@@ -1,3 +1,4 @@
+/* Paleta semântica: cada tema redefine as variáveis, preservando a identidade das sessões. */
 :root {
   color-scheme: dark;
   font-family: Arial, "Segoe UI", sans-serif;
@@ -109,6 +110,8 @@ html, body, #root { min-width: 0; min-height: 100%; margin: 0; background: var(-
 body { overflow-x: hidden; }
 button { font: inherit; }
 
+/* A altura mínima preenche a tela; conteúdo maior pode crescer com rolagem.
+   Evitar height: 100vh + overflow: hidden, que corta o rodapé em telas mais baixas. */
 .dashboard {
   width: 100%;
   height: auto;
@@ -260,6 +263,8 @@ button { font: inherit; }
 .summary-status b { font-size: 13px; font-weight: 500; white-space: nowrap; }
 .summary-status span { margin-top: 4px; color: var(--muted); font-size: 8px; text-transform: uppercase; }
 .pace-card { display: grid; grid-template-rows: 23px minmax(0, 1fr); }
+/* O SVG ocupa o espaço reservado sem impor sua altura intrínseca ao cartão.
+   Isso mantém a borda do gráfico dentro da margem inferior do painel. */
 .pace-chart-wrap { position: relative; min-height: 100px; }
 .pace-chart { position: absolute; inset: 0; display: block; width: 100%; height: 100%; overflow: hidden; }
 .pace-target { stroke: var(--amber); stroke-width: 1.5; stroke-dasharray: 7 5; }
@@ -279,6 +284,7 @@ button { font: inherit; }
 .state-screen h1, .state-screen p { margin: 0; }
 
 @media (max-width: 1250px) {
+  /* Abaixo do layout de TV, os painéis principais e o rodapé ficam empilhados. */
   .dashboard { height: auto; min-height: 100vh; padding: 18px; grid-template-rows: auto auto auto; gap: 16px; overflow: visible; }
   .topbar { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; grid-template-rows: auto auto; column-gap: 16px; row-gap: 3px; }
   .brand { grid-column: 1; grid-row: 1 / 3; }

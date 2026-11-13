@@ -1,3 +1,4 @@
+// Cor fixa por frente; order mantém compatibilidade com APIs sem flow_order.
 const sessionMeta = {
   auditorias: { tone: "green", order: 3 },
   expedicao: { tone: "blue", order: 4 },
@@ -16,6 +17,7 @@ function SessionDetails({ session }) {
 }
 
 export function FlowMonitor({ sessions, aggregate }) {
+  // A mesma lista ordenada alimenta os cartões e os anéis, do externo ao interno.
   const rings = sessions
     .filter((session) => sessionMeta[session.id])
     .map((session) => ({

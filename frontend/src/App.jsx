@@ -19,6 +19,8 @@ function LoadingScreen({ error }) {
   );
 }
 
+// Compatibilidade com a API anterior: esta curva é demonstrativa e fixa.
+// Quando hourly_flow chega da API, os pontos dos CSVs têm prioridade.
 const fallbackHourlyFlow = [1420, 1680, 2150, 2380, 2450, 1820, 2240, 2410, 1870].map((realized, index) => ({
   label: ["23h", "00h", "01h", "02h", "03h", "04h", "05h", "06h", "07h"][index],
   realized,
@@ -27,6 +29,8 @@ const fallbackHourlyFlow = [1420, 1680, 2150, 2380, 2450, 1820, 2240, 2410, 1870
 }));
 
 function deriveOperationalSummary(teams, kpis) {
+  // Compatibilidade durante deploys separados: espelha as regras do backend
+  // somente quando a resposta ainda não inclui operational_summary.
   const totalEffectiveMinutes = teams.reduce((total, team) => total + (team.effective_minutes || 0), 0);
   const processed = kpis.processed;
   const weightedNet = teams.reduce(
@@ -49,6 +53,8 @@ function deriveOperationalSummary(teams, kpis) {
 }
 
 function deriveCompletionForecast(data) {
+  // Calcula pela coleta, nunca pelo relógio ao vivo: atualizar a tela sem novos
+  // dados não deve empurrar a previsão para frente. O fuso exibido é o da operação.
   const { kpis } = data;
   const remaining = Math.max(0, kpis.volume_day - kpis.processed);
   if (remaining === 0) return { time: "Concluído", note: "Volume do turno processado" };
@@ -113,6 +119,7 @@ export default function App() {
         />
       </section>
 
+      {/* Composição principal: liderança à esquerda e sessões com anéis à direita. */}
       <section className="main-grid">
         <TeamTable teams={data.teams} />
         <FlowMonitor sessions={data.sessions} aggregate={data.aggregate_flow_pct} />

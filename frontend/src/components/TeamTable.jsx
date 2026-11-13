@@ -29,6 +29,7 @@ export function TeamTable({ teams }) {
       <div className="team-list">
         {teams.map((team) => {
           const netPct = team.net_pct || 0;
+          // Cor visual da NET (35%) e status por avanço de volume são critérios distintos.
           const productivityClass = netPct >= 35 ? "success" : "warning";
 
           return (
@@ -42,6 +43,7 @@ export function TeamTable({ teams }) {
                 <small>{formatEffectiveTime(team.effective_minutes)} MO efetiva</small>
               </div>
               <b className="volume-cell" data-label="Volume total">{format.format(team.bipagens)}</b>
+              {/* Escala visual de 0 a 40% NET: 40 × 2,5 preenche 100% da barra. */}
               <div className={`team-progress ${productivityClass}`} data-label="Produtividade NET">
                 <div className="progress-track"><span style={{ width: `${Math.min(netPct * 2.5, 100)}%` }} /></div>
                 <b>{netPct.toFixed(1).replace(".", ",")}%</b>

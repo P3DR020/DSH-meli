@@ -16,6 +16,8 @@ def _as_float(value: str) -> float:
 
 
 class CsvDashboardSource(DashboardSource):
+    """Converte o arquivo exportado no contrato de entrada do motor de indicadores."""
+
     def __init__(self, file_path: Path):
         self.file_path = file_path
 
@@ -23,17 +25,21 @@ class CsvDashboardSource(DashboardSource):
         if not self.file_path.exists():
             raise FileNotFoundError(f"Arquivo CSV nao encontrado: {self.file_path}")
 
+        # utf-8-sig aceita também o marcador BOM comum nas exportações do Excel.
         with self.file_path.open(encoding="utf-8-sig", newline="") as stream:
             rows = list(csv.DictReader(stream))
 
         if not rows:
             raise ValueError("O arquivo CSV esta vazio.")
 
+        # Unidade, turno e totais se repetem nas linhas; a primeira fornece os dados globais.
         first = rows[0]
         teams: list[dict[str, Any]] = []
         sessions: list[dict[str, Any]] = []
         hourly_flow: list[dict[str, Any]] = []
 
+        # kind separa três registros no mesmo arquivo: equipe, sessão e volume por hora.
+        # flow_order preserva a sequência do T3 ao atravessar a meia-noite (23h → 00h).
         for row in rows:
             if row["kind"] == "hour":
                 hourly_flow.append({
@@ -83,6 +89,8 @@ class CsvDashboardSource(DashboardSource):
 
 
 class RotatingCsvDashboardSource(DashboardSource):
+    """Alterna os cenários de demonstração por tempo decorrido desde o início do serviço."""
+
     def __init__(self, directory: Path, interval_seconds: int = 10):
         self.directory = directory
         self.interval_seconds = max(1, interval_seconds)
@@ -97,6 +105,8 @@ class RotatingCsvDashboardSource(DashboardSource):
     def fetch_data(self) -> dict[str, Any]:
         files = self._files()
         elapsed_seconds = monotonic() - self.started_at
+        # O relógio monotônico não depende de ajustes no relógio do computador.
+        # O módulo reinicia o ciclo; clientes do mesmo processo veem o mesmo cenário.
         snapshot_index = int(elapsed_seconds // self.interval_seconds) % len(files)
         data = CsvDashboardSource(files[snapshot_index]).fetch_data()
         data.update({

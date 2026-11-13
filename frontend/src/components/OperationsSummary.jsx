@@ -17,14 +17,17 @@ function statusClass(status) {
 function PaceChart({ points }) {
   if (!points?.length) return <p className="chart-empty">Sem histórico por hora.</p>;
 
+  // Coordenadas internas do SVG; o CSS adapta o gráfico ao espaço disponível.
   const width = 900;
   const height = 126;
   const pad = { top: 25, right: 20, bottom: 27, left: 28 };
   const values = points.flatMap((point) => [point.realized, point.target]);
+  // Inclui a meta na escala e reserva espaço acima dos pontos para os rótulos.
   const max = Math.max(...values, 1) * 1.12;
   const x = (index) => pad.left + (index * (width - pad.left - pad.right)) / Math.max(points.length - 1, 1);
   const y = (value) => pad.top + (1 - value / max) * (height - pad.top - pad.bottom);
   const polyline = points.map((point, index) => `${x(index)},${y(point.realized)}`).join(" ");
+  // A linha tracejada representa uma meta nominal constante ao longo do turno.
   const targetY = y(points[0].target);
 
   return (

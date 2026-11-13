@@ -16,6 +16,7 @@ export function ThemeSelector() {
   const [theme, setTheme] = useState(getInitialTheme);
 
   useLayoutEffect(() => {
+    // O atributo no <html> seleciona as variáveis CSS antes da pintura da tela.
     document.documentElement.dataset.theme = theme;
     try {
       window.localStorage.setItem(STORAGE_KEY, theme);

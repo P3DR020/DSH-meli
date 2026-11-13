@@ -21,6 +21,8 @@ allowed_origins = [
     if origin.strip()
 ]
 
+# Permite ao navegador consultar a API a partir dos endereços locais e da Vercel.
+# CORS controla origens no navegador; não substitui autenticação da API.
 app.add_middleware(
     CORSMiddleware,
     allow_origins=allowed_origins,
@@ -29,12 +31,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# A fonte ativa é a demonstração rotativa. A integração oficial entra neste ponto,
+# implementando DashboardSource e mantendo o contrato esperado pelo BusinessEngine.
 source = RotatingCsvDashboardSource(DEMO_DATA_DIR, DEMO_INTERVAL_SECONDS)
 engine = BusinessEngine(STALE_AFTER_MINUTES)
 
 
 @app.get("/api/v1/dashboard/turno-atual")
 def current_shift():
+    # Cada consulta lê a fonte e calcula um snapshot completo para a interface.
     try:
         return engine.calculate(source.fetch_data())
     except (FileNotFoundError, ValueError, KeyError) as exc:
