@@ -50,12 +50,12 @@ function deriveOperationalSummary(teams, kpis) {
 
 function deriveCompletionForecast(data) {
   const { kpis } = data;
-  if (kpis.estimated_completion_time) {
-    return { time: kpis.estimated_completion_time, hours: kpis.remaining_hours };
-  }
-
   const remaining = Math.max(0, kpis.volume_day - kpis.processed);
-  const hours = kpis.pace_per_hour > 0 ? remaining / kpis.pace_per_hour : 0;
+  if (remaining === 0) return { time: "Concluído", note: "Volume do turno processado" };
+  if (kpis.pace_per_hour <= 0) return { time: "—", note: "Sem previsão • aguardando ritmo" };
+  const hours = remaining / kpis.pace_per_hour;
+  const minutes = Math.ceil(hours * 60);
+  const duration = `${Math.floor(minutes / 60)}h${String(minutes % 60).padStart(2, "0")}min`;
   const estimatedDate = new Date(new Date(data.updated_at).getTime() + hours * 3_600_000);
   return {
     time: new Intl.DateTimeFormat("pt-BR", {
@@ -64,7 +64,7 @@ function deriveCompletionForecast(data) {
       hour12: false,
       timeZone: "America/Sao_Paulo",
     }).format(estimatedDate),
-    hours: Math.round(hours * 100) / 100,
+    note: `${duration} restantes • ritmo de ${new Intl.NumberFormat("pt-BR").format(kpis.pace_per_hour)} pct/h`,
   };
 }
 
@@ -107,7 +107,7 @@ export default function App() {
         <KpiCard
           label="Previsão de término"
           value={completionForecast.time}
-          note={`Ritmo atual: ${new Intl.NumberFormat("pt-BR").format(kpis.pace_per_hour)} pct/h • ${completionForecast.hours.toFixed(1).replace(".", ",")}h restantes`}
+          note={completionForecast.note}
           progress={kpis.progress_pct}
           tone="cyan"
         />

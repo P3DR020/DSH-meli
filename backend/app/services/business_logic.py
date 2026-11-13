@@ -60,9 +60,9 @@ class BusinessEngine:
         pace = raw["pace_per_hour"]
         overall_progress = _percent(processed, volume_day)
         remaining_volume = max(0, volume_day - processed)
-        remaining_hours_exact = remaining_volume / pace if pace > 0 else 0.0
-        remaining_hours = round(remaining_hours_exact, 2)
-        estimated_completion = updated_at + timedelta(hours=remaining_hours_exact)
+        remaining_hours_exact = remaining_volume / pace if pace > 0 else None
+        remaining_hours = round(remaining_hours_exact, 2) if remaining_hours_exact is not None else None
+        estimated_completion = updated_at + timedelta(hours=remaining_hours_exact) if remaining_hours_exact is not None else None
         aggregate_flow = round(sum(s["progress_pct"] for s in sessions) / len(sessions)) if sessions else 0
         best_team = max(teams, key=lambda item: (item["progress_pct"], -item["errors"]), default=None)
         total_headcount = sum(team.get("headcount", 0) for team in teams)
@@ -100,7 +100,7 @@ class BusinessEngine:
                 "packages_at_station_pct": _percent(packages_at_station, volume_day),
                 "pace_per_hour": pace,
                 "remaining_hours": remaining_hours,
-                "estimated_completion_time": estimated_completion.strftime("%H:%M"),
+                "estimated_completion_time": estimated_completion.strftime("%H:%M") if estimated_completion else None,
             },
             "teams": teams,
             "sessions": sessions,

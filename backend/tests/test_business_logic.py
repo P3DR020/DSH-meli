@@ -57,6 +57,16 @@ class BusinessEngineTests(unittest.TestCase):
         )
         self.assertTrue(result["stale"])
 
+    def test_forecast_can_extend_beyond_shift_end(self):
+        raw = {**RAW, "updated_at": datetime.fromisoformat("2026-11-12T06:00:00-03:00")}
+        result = BusinessEngine().calculate(raw)
+        self.assertEqual(result["kpis"]["estimated_completion_time"], "09:00")
+
+    def test_zero_pace_has_no_forecast(self):
+        result = BusinessEngine().calculate({**RAW, "pace_per_hour": 0})
+        self.assertIsNone(result["kpis"]["estimated_completion_time"])
+        self.assertIsNone(result["kpis"]["remaining_hours"])
+
 
 if __name__ == "__main__":
     unittest.main()
