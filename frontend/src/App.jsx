@@ -1,3 +1,9 @@
+/**
+ * Montagem da tela: cabeçalho → cinco KPIs → equipes/sessões → consolidado/ritmo.
+ * useDashboard concentra a comunicação HTTP; os componentes recebem props.
+ * O backend é a fonte principal dos indicadores. Os cálculos auxiliares abaixo
+ * atendem à compatibilidade entre versões implantadas separadamente.
+ */
 import { FlowMonitor } from "./components/FlowMonitor";
 import { KpiCard } from "./components/KpiCard";
 import { TeamTable } from "./components/TeamTable";
@@ -29,6 +35,12 @@ const fallbackHourlyFlow = [1420, 1680, 2150, 2380, 2450, 1820, 2240, 2410, 1870
 }));
 
 function deriveOperationalSummary(teams, kpis) {
+  /**
+   * Entrada: equipes da API e KPIs do turno. Saída: contrato do cartão inferior.
+   * A ponderação usa minutos acumulados de MO, e não a quantidade de equipes.
+   * Ex.: equipes com 33%/100 min e 36%/200 min produzem NET global de 35%.
+   * Se as regras do backend mudarem, revisar esta compatibilidade em conjunto.
+   */
   // Compatibilidade durante deploys separados: espelha as regras do backend
   // somente quando a resposta ainda não inclui operational_summary.
   const totalEffectiveMinutes = teams.reduce((total, team) => total + (team.effective_minutes || 0), 0);
@@ -53,6 +65,16 @@ function deriveOperationalSummary(teams, kpis) {
 }
 
 function deriveCompletionForecast(data) {
+  /**
+   * Projeta a conclusão mantendo constante o ritmo informado pela fonte.
+   * Considera todo o volume ainda não processado, inclusive carga a caminho.
+   * Não limita a projeção ao fim do turno. O timestamp completo da coleta permite
+   * atravessar a meia-noite; a tela mostra somente HH:mm no fuso de São Paulo.
+   * O texto da duração arredonda para cima em minutos; o horário usa a duração
+   * exata. Por isso as duas apresentações podem diferir por menos de um minuto.
+   * Esta função calcula localmente a partir dos dados básicos, mesmo quando a
+   * API também fornece estimated_completion_time/remaining_hours.
+   */
   // Calcula pela coleta, nunca pelo relógio ao vivo: atualizar a tela sem novos
   // dados não deve empurrar a previsão para frente. O fuso exibido é o da operação.
   const { kpis } = data;
@@ -77,12 +99,16 @@ function deriveCompletionForecast(data) {
 export default function App() {
   const { data, error, loading, refresh } = useDashboard();
   const currentTime = useClock();
+  // Antes do primeiro snapshot mostramos carregamento/erro. Depois da primeira
+  // resposta válida, falhas de atualização usam o banner e mantêm o painel visível.
   if (!data && (loading || error)) return <LoadingScreen error={error} />;
   if (!data) return null;
 
   const { kpis } = data;
   const operationalSummary = data.operational_summary || deriveOperationalSummary(data.teams, kpis);
   const hourlyFlow = data.hourly_flow?.length ? data.hourly_flow : fallbackHourlyFlow;
+  // A curva fixa acima é somente uma compatibilidade de demonstração: não deve
+  // ser confundida com histórico oficial caso a integração ainda não envie pontos.
   const completionForecast = deriveCompletionForecast(data);
   return (
     <main className={`dashboard ${data.stale ? "is-stale" : ""}`}>

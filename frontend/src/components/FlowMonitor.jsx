@@ -17,6 +17,13 @@ function SessionDetails({ session }) {
 }
 
 export function FlowMonitor({ sessions, aggregate }) {
+  /**
+   * sessions contém id, name, progress_pct, detail_1/detail_2 e flow_order.
+   * aggregate já chega calculado: a interface não soma os percentuais dos arcos.
+   * IDs desconhecidos ficam fora do gráfico, pois não têm cor/posição cadastradas.
+   * Para incluir uma frente nova, revisar sessionMeta e as posições .ring-N no CSS.
+   * A cor identifica a frente e permanece fixa, mesmo quando ela supera a meta.
+   */
   // A mesma lista ordenada alimenta os cartões e os anéis, do externo ao interno.
   const rings = sessions
     .filter((session) => sessionMeta[session.id])
@@ -34,6 +41,7 @@ export function FlowMonitor({ sessions, aggregate }) {
       <div className="flow-content">
         <div className="radial" aria-label={`Fluxo geral agregado ${aggregate}%`}>
           {rings.map((session, index) => (
+            // --pct alimenta o conic-gradient; ring-N define o raio no CSS.
             <div className={`ring ring-${index + 1} ${session.tone}`} style={{ "--pct": session.progress_pct }} key={session.id} />
           ))}
           <div className="radial-center"><strong>{aggregate}%</strong><span>Fluxo geral</span><small>Média integrada</small></div>

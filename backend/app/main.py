@@ -1,3 +1,11 @@
+"""Entrada HTTP da aplicação, executada pelo Uvicorn.
+
+GET /api/v1/dashboard/turno-atual entrega o snapshot calculado ao frontend.
+GET /api/v1/health confirma que a aplicação está respondendo; não valida a
+leitura dos CSVs. A fonte e o motor são instanciados uma vez por processo.
+Para ativar dados oficiais, substituir source por outro DashboardSource.
+"""
+
 import os
 
 from fastapi import FastAPI, HTTPException
@@ -43,6 +51,8 @@ def current_shift():
     try:
         return engine.calculate(source.fetch_data())
     except (FileNotFoundError, ValueError, KeyError) as exc:
+        # Converte falhas previstas de arquivo/formato em resposta HTTP 500.
+        # O frontend exibe o erro e conserva seu último snapshot válido.
         raise HTTPException(status_code=500, detail=str(exc)) from exc
 
 

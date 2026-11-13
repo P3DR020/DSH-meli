@@ -4,6 +4,8 @@ const STORAGE_KEY = "dashboard-theme-v1";
 const THEMES = new Set(["dark", "light", "contrast"]);
 
 function getInitialTheme() {
+  // Aceita somente os três valores cadastrados. Preferência inválida, ausente
+  // ou armazenamento indisponível volta ao escuro sem impedir o carregamento.
   try {
     const savedTheme = window.localStorage.getItem(STORAGE_KEY);
     return THEMES.has(savedTheme) ? savedTheme : "dark";
@@ -13,6 +15,11 @@ function getInitialTheme() {
 }
 
 export function ThemeSelector() {
+  /**
+   * O tema é uma preferência deste navegador, persistida em localStorage.
+   * Não é enviado ao backend nem interfere nos valores dos indicadores.
+   * As cores reais ficam em styles.css, nas regras :root[data-theme="..."].
+   */
   const [theme, setTheme] = useState(getInitialTheme);
 
   useLayoutEffect(() => {

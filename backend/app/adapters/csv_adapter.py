@@ -16,12 +16,28 @@ def _as_float(value: str) -> float:
 
 
 class CsvDashboardSource(DashboardSource):
-    """Converte o arquivo exportado no contrato de entrada do motor de indicadores."""
+    """Converte uma exportação CSV no contrato do motor de indicadores.
+
+    Estrutura do arquivo:
+      team: volume, meta, erros e dados da liderança (HC, MO e NET);
+      session: contagens, descrições e ordem de cada frente operacional;
+      hour: volume realizado e meta nominal em cada faixa horária.
+
+    As colunas globais são lidas da primeira linha. Campos opcionais de liderança
+    aceitam exportações antigas; campos obrigatórios ausentes geram KeyError.
+    Números devem usar ponto decimal e não devem ter separador de milhar.
+    """
 
     def __init__(self, file_path: Path):
         self.file_path = file_path
 
     def fetch_data(self) -> dict[str, Any]:
+        """Lê o arquivo a cada chamada e devolve números/datas prontos para cálculo.
+
+        O adaptador não calcula os percentuais: current e target seguem para o
+        motor. Arquivo inexistente/vazio interrompe a leitura; não cria um turno
+        fictício de zeros que poderia parecer uma consulta bem-sucedida.
+        """
         if not self.file_path.exists():
             raise FileNotFoundError(f"Arquivo CSV nao encontrado: {self.file_path}")
 
@@ -61,6 +77,8 @@ class CsvDashboardSource(DashboardSource):
                 "detail_2": row["detail_2"],
             }
             if row["kind"] == "team":
+                # effective_minutes é a soma da MO da equipe, não a duração de um
+                # colaborador. Ex.: 20 pessoas × 470 min = 9.400 min de MO.
                 item.update({
                     "leader_name": row.get("leader_name") or row["name"],
                     "headcount": _as_int(row.get("headcount") or "0"),
@@ -89,7 +107,13 @@ class CsvDashboardSource(DashboardSource):
 
 
 class RotatingCsvDashboardSource(DashboardSource):
-    """Alterna os cenários de demonstração por tempo decorrido desde o início do serviço."""
+    """Simula a evolução do turno sem depender de uma integração externa.
+
+    Os arquivos snapshot_*.csv são ordenados pelo nome. A cada intervalo avança
+    um cenário e, ao final, retorna ao primeiro. Reiniciar o processo reinicia
+    esse relógio. Não há gravação dos CSVs nem avanço por número de requisições.
+    Em múltiplos processos, cada processo mantém seu próprio relógio de rotação.
+    """
 
     def __init__(self, directory: Path, interval_seconds: int = 10):
         self.directory = directory

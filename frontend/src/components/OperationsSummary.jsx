@@ -3,6 +3,8 @@ function formatNumber(value) {
 }
 
 function formatHours(minutes) {
+  // Exibe minutos acumulados de mão de obra, que podem ultrapassar 24h.
+  // Não usar Date aqui: 33.840 minutos representam 564h de MO, não um horário.
   const hours = Math.floor(minutes / 60);
   const remaining = minutes % 60;
   return remaining ? `${hours}h ${String(remaining).padStart(2, "0")}min` : `${hours}h`;
@@ -15,6 +17,12 @@ function statusClass(status) {
 }
 
 function PaceChart({ points }) {
+  /**
+   * points: [{ label: "23h", realized: 1420, target: 1540, order: 1 }, ...].
+   * A lista deve chegar ordenada pela sequência do turno, não pelo texto do horário.
+   * O SVG é desenhado sem biblioteca de gráficos: uma linha de meta, uma polilinha
+   * de realizado e um grupo por ponto com marcador, valor e horário.
+   */
   if (!points?.length) return <p className="chart-empty">Sem histórico por hora.</p>;
 
   // Coordenadas internas do SVG; o CSS adapta o gráfico ao espaço disponível.
@@ -25,6 +33,8 @@ function PaceChart({ points }) {
   // Inclui a meta na escala e reserva espaço acima dos pontos para os rótulos.
   const max = Math.max(...values, 1) * 1.12;
   const x = (index) => pad.left + (index * (width - pad.left - pad.right)) / Math.max(points.length - 1, 1);
+  // No SVG, Y cresce para baixo. Inverter value/max coloca volumes maiores
+  // mais acima. O denominador mínimo de X também permite uma série com um ponto.
   const y = (value) => pad.top + (1 - value / max) * (height - pad.top - pad.bottom);
   const polyline = points.map((point, index) => `${x(index)},${y(point.realized)}`).join(" ");
   // A linha tracejada representa uma meta nominal constante ao longo do turno.
@@ -48,6 +58,12 @@ function PaceChart({ points }) {
 }
 
 export function OperationsSummary({ summary, hourlyFlow, shift }) {
+  /**
+   * summary traz o consolidado do backend (ou a compatibilidade montada em App).
+   * Este componente formata unidades e números, sem recalcular as regras de NET.
+   * A meta da legenda usa o primeiro ponto, pois o gráfico assume meta constante.
+   * Abaixo de 620px, o gráfico mantém largura própria com rolagem horizontal.
+   */
   const nominalTarget = hourlyFlow?.[0]?.target || 0;
   return (
     <section className="operations-band" aria-label="Resumo operacional e ritmo por hora">

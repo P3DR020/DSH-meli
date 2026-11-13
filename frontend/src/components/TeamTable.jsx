@@ -12,6 +12,14 @@ function statusClass(status) {
 }
 
 export function TeamTable({ teams }) {
+  /**
+   * Cada linha representa uma equipe com liderança, HC, volume, NET e qualidade.
+   * Os nomes dos líderes e suas equipes vêm da API/CSV; não são fixados aqui.
+   * effective_minutes é MO acumulada, bipagens é volume e error_rate_pct já está
+   * calculada. O componente só formata essas medidas e escolhe classes visuais.
+   * Em celular, data-label oferece os títulos de cada campo via CSS, substituindo
+   * a linha de cabeçalhos que fica escondida no layout de cartões.
+   */
   const totalHeadcount = teams.reduce(
     (total, team) => total + (team.headcount || 0),
     0,

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 
 function getCurrentTime() {
+  // Usa o fuso do dispositivo que exibe o painel. É independente do horário da
+  // coleta e da previsão, que App.jsx apresenta no fuso America/Sao_Paulo.
   return new Intl.DateTimeFormat("pt-BR", {
     hour: "2-digit",
     minute: "2-digit",
@@ -14,6 +16,7 @@ export function useClock() {
   const [time, setTime] = useState(getCurrentTime);
 
   useEffect(() => {
+    // Atualiza só o estado local a cada segundo; desmontar o componente libera o timer.
     const timer = window.setInterval(() => setTime(getCurrentTime()), 1_000);
     return () => window.clearInterval(timer);
   }, []);
